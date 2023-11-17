@@ -1,0 +1,6 @@
+service:
+  servicePort: 8001
+  webPort: 8002
+consul:
+  address: 101.43.7.108:8500
+  timeTicker: 60
