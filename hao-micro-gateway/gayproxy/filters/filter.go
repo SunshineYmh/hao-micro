@@ -1,9 +1,9 @@
 package filters
 
 import (
-	"hao-micro/hao-micro-gay/gayproxy/handler"
-	"hao-micro/hao-micro-gay/gayproxy/haolog"
-	"hao-micro/hao-micro-gay/utils"
+	"hao-micro/hao-micro-gateway/gayproxy/handler"
+	"hao-micro/hao-micro-gateway/gayproxy/haolog"
+	"hao-micro/hao-micro-gateway/utils"
 	"net/http"
 	"time"
 

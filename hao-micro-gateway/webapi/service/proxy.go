@@ -5,12 +5,12 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
-	"hao-micro/hao-micro-gay/gayproxy/haoType"
-	"hao-micro/hao-micro-gay/gayproxy/haogoproxy"
+	"hao-micro/hao-micro-gateway/gayproxy/haoType"
+	"hao-micro/hao-micro-gateway/gayproxy/haogoproxy"
 	"net/http"
 	"net/http/httputil"
 
-	syslog "hao-micro/hao-micro-gay/utils"
+	syslog "hao-micro/hao-micro-gateway/utils"
 
 	"github.com/gin-gonic/gin"
 )

@@ -10,13 +10,24 @@ import (
 )
 
 type Config struct {
-	Service ServerConfig `json:"Service"`
+	Service ServerConfig `json:"service"`
 	Consul  consulConfig `json:"consul"`
+	MySql   DbConfig     `json:"mysql"`
+	Redis   RedisConfig  `json:"redis"`
+	Jwt     JwtConfig    `json:"jwt"`
 }
 
 type ServerConfig struct {
-	ServicePort int `json:"servicePort"`
-	WebPort     int `json:"webPort"`
+	HaoMicro HaoMicro `json:"haomicro"`
+	HaoWeb   HaoWeb   `json:"haoweb"`
+}
+
+type HaoMicro struct {
+	Port int `json:"port"`
+}
+
+type HaoWeb struct {
+	Port int `json:"port"`
 }
 
 // consul  服务配置
@@ -43,8 +54,8 @@ func SyConfig() (Config, error) {
 		return config, errors.New(massage)
 	}
 
-	fmt.Println("api网关端口： ", config.Service.ServicePort)
-	fmt.Println("webApi 端口： ", config.Service.WebPort)
+	fmt.Println("api网关端口： ", config.Service.HaoMicro.Port)
+	fmt.Println("webApi 端口： ", config.Service.HaoWeb.Port)
 	fmt.Println("consul  服务地址： ", config.Consul.Address)
 	return config, nil
 }

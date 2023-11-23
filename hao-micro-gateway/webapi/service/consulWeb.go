@@ -1,8 +1,8 @@
 package service
 
 import (
-	"hao-micro/hao-micro-gay/consul"
-	"hao-micro/hao-micro-gay/utils"
+	"hao-micro/hao-micro-gateway/consul"
+	"hao-micro/hao-micro-gateway/utils"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

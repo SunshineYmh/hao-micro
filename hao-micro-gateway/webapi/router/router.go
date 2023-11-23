@@ -1,58 +1,33 @@
 package router
 
 import (
-	"bytes"
-	"fmt"
-	webapiServie "hao-micro/hao-micro-gay/webapi/service"
-	"io"
+	"hao-micro/hao-micro-gateway/auth"
+	webapiServie "hao-micro/hao-micro-gateway/webapi/service"
 
 	"github.com/gin-gonic/gin"
 )
-
-type ResponseWriterWrapper struct {
-	gin.ResponseWriter
-	Body *bytes.Buffer // 缓存
-}
-
-func (w ResponseWriterWrapper) Write(b []byte) (int, error) {
-	w.Body.Write(b)
-	return w.ResponseWriter.Write(b)
-}
-
-func (w ResponseWriterWrapper) WriteString(s string) (int, error) {
-	w.Body.WriteString(s)
-	return w.ResponseWriter.WriteString(s)
-}
-
-// middleware app debug log, 作用是记录请求响应的信息
-func AppDebugLog() gin.HandlerFunc {
-	return func(ctx *gin.Context) {
-		// record request info
-		reqBody, _ := io.ReadAll(ctx.Request.Body)
-		// log.Logger.Info("requestInfo",
-		// 	log.String("method", ctx.Request.Method),
-		// 	log.Any("body", string(reqBody)),
-		// 	log.String("clientIP", ctx.Request.RemoteAddr),
-		// 	log.String("url", ctx.Request.RequestURI))
-		// record response info
-		fmt.Println(fmt.Printf("请求报文：%s", string(reqBody)))
-		ctx.Request.Body = io.NopCloser(bytes.NewReader(reqBody))
-
-		blw := &ResponseWriterWrapper{Body: bytes.NewBufferString(""), ResponseWriter: ctx.Writer}
-		ctx.Writer = blw
-		ctx.Next()
-
-		fmt.Println(fmt.Printf("响应报文：%s", blw.Body.String()))
-
-	}
-}
 
 /**
 * webApi 接口
  */
 func IntoWebApi(web_addr string) error {
+
 	web_routes := gin.Default()
-	//web_routes.Use(AppDebugLog())
+	gin.SetMode(gin.DebugMode) //开发环境
+	// gin.SetMode(gin.ReleaseMode) //线上环境
+	web_routes.Use(auth.Auth)
+	hao_web_auth_api := web_routes.Group("/hao-web/aouth")
+	{
+		hao_web_auth_api.POST("/login", webapiServie.Login)
+		hao_web_auth_api.POST("/signup/mobile", webapiServie.SignupByMobile)
+		hao_web_auth_api.POST("/renewal", webapiServie.Renewal)
+	}
+	hao_web_user_api := web_routes.Group("/hao-web/user")
+	{
+		hao_web_user_api.POST("/logout", webapiServie.Logout)
+		hao_web_user_api.GET("/my/info", webapiServie.Info)
+	}
+
 	hao_web_api := web_routes.Group("/hao-web/gayproxy")
 	{
 		hao_web_api.POST("/AddRouter", webapiServie.AddRouter)

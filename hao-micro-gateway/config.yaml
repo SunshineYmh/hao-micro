@@ -1,6 +1,34 @@
 service:
-  servicePort: 8001
-  webPort: 8002
+  haomicro:
+    port: 8001
+  haoweb:
+    port: 8002
 consul:
   address: 101.43.7.108:8500
   timeTicker: 60
+mysql:
+  dbName: ymh-mysql
+  driverName: mysql
+  dsn: root:My.931206@tcp(101.43.7.108:3306)/hao-micro?charset=utf8mb4&parseTime=true&loc=Local
+  showSql: true
+  showExecTime: false
+  MaxIdle: 10
+  MaxOpen: 100
+redis:
+  name: redis
+  type: tcp
+  address: 127.0.0.1:6379
+  auth:
+  maxIdle: 16
+  maxActive: 0
+  idleTimeout: 300
+  expires: 30
+  redisSuf: hao.mircro.redis.suf
+  redisBlack: hao.mircro.redis.black
+jwt:
+  host: http://localhost:8002
+  expires: 30
+  jwtKey: 42wqTE23123wffLU94342wgldgFs
+  openJwt: true
+  routes: 
+      - /hao-web/aouth

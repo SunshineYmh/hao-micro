@@ -2,13 +2,13 @@ package haolog
 
 import (
 	"fmt"
-	"hao-micro/hao-micro-gay/gayproxy/handler"
-	"hao-micro/hao-micro-gay/gayproxy/haoType"
+	"hao-micro/hao-micro-gateway/gayproxy/handler"
+	"hao-micro/hao-micro-gateway/gayproxy/haoType"
 	"strings"
 	"time"
 
-	dateutils "hao-micro/hao-micro-gay/utils"
-	gaylog "hao-micro/hao-micro-gay/utils"
+	dateutils "hao-micro/hao-micro-gateway/utils"
+	gaylog "hao-micro/hao-micro-gateway/utils"
 
 	"github.com/gin-gonic/gin"
 )
